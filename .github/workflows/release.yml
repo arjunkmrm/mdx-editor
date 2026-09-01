@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Verify tag
+        run: test "${GITHUB_REF_NAME}" = "$(bun -e 'console.log(require("./manifest.json").version)')"
+      - run: bun run build
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" manifest.json main.js styles.css --generate-notes --title "${GITHUB_REF_NAME}"

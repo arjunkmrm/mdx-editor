@@ -1,0 +1,34 @@
+{
+  "name": "obsidian-mdx-editor",
+  "version": "0.1.0",
+  "description": "A visual and source editor for MDX files in Obsidian.",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc --noEmit && bun build src/main.tsx src/styles.css --outdir . --target browser --format cjs --external obsidian --minify",
+    "dev": "bun build src/main.tsx src/styles.css --outdir . --target browser --format cjs --external obsidian --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "obsidian",
+    "obsidian-plugin",
+    "mdx",
+    "editor"
+  ],
+  "author": "Arjun Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "@codemirror/language": "^6.12.4",
+    "@codemirror/view": "^6.43.9",
+    "@lezer/highlight": "^1.2.3",
+    "@mdxeditor/editor": "^3.42.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "obsidian": "^1.8.7",
+    "typescript": "7.0.2"
+  }
+}
